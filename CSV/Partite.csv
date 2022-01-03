@@ -1,0 +1,44 @@
+Codice,Turno,Fase,Risultato,Data_partita,Torneo,Anno_torneo,Squadra1,Squadra2
+1,1,QUARTI,0-1,2021-10-23,Season World Championship,2021,EDward Gaming,Cloud9
+2,2,QUARTI,0-2,2021-10-23,Season World Championship,2021,EDward Gaming,Cloud9
+3,3,QUARTI,1-2,2021-10-23,Season World Championship,2021,EDward Gaming,Cloud9
+4,4,QUARTI,2-2,2021-10-23,Season World Championship,2021,EDward Gaming,Cloud9
+5,5,QUARTI,3-2,2021-10-23,Season World Championship,2021,EDward Gaming,Cloud9
+6,1,QUARTI,1-0,2021-10-24,Season World Championship,2021,DWG KIA,Fnatic
+7,2,QUARTI,2-0,2021-10-24,Season World Championship,2021,DWG KIA,Fnatic
+8,3,QUARTI,3-0,2021-10-24,Season World Championship,2021,DWG KIA,Fnatic
+9,1,SEMIFINALE,0-1,2021-10-30,Season World Championship,2021,T1,EDward Gaming
+10,2,SEMIFINALE,1-1,2021-10-30,Season World Championship,2021,T1,EDward Gaming
+11,3,SEMIFINALE,1-2,2021-10-30,Season World Championship,2021,T1,EDward Gaming
+12,4,SEMIFINALE,2-2,2021-10-30,Season World Championship,2021,T1,EDward Gaming
+13,5,SEMIFINALE,2-3,2021-10-30,Season World Championship,2021,T1,EDward Gaming
+14,1,SEMIFINALE,1-0,2021-10-31,Season World Championship,2021,DWG KIA,FunPlus Phoenix
+15,2,SEMIFINALE,2-0,2021-10-31,Season World Championship,2021,DWG KIA,FunPlus Phoenix
+16,3,SEMIFINALE,3-0,2021-10-31,Season World Championship,2021,DWG KIA,FunPlus Phoenix
+17,1,FINALE,1-0,2021-11-06,Season World Championship,2021,DWG KIA,EDward Gaming
+18,2,FINALE,2-0,2021-11-06,Season World Championship,2021,DWG KIA,EDward Gaming
+19,3,FINALE,2-1,2021-11-06,Season World Championship,2021,DWG KIA,EDward Gaming
+20,4,FINALE,2-2,2021-11-06,Season World Championship,2021,DWG KIA,EDward Gaming
+21,5,FINALE,2-3,2021-11-06,Season World Championship,2021,DWG KIA,EDward Gaming
+22,1,FASE A GIRONI,1-0,2019-05-10,Mid Season Invitational,2019,T1,Fnatic
+23,1,FASE A GIRONI,0-1,2019-05-10,Mid Season Invitational,2019,FunPlus Phoenix,G2 Esports
+24,1,FASE A GIRONI,1-0,2019-05-11,Mid Season Invitational,2019,T1,G2 Esports
+25,1,FASE A GIRONI,0-1,2019-05-11,Mid Season Invitational,2019,FunPlus Phoenix,Fnatic
+26,1,FASE A GIRONI,1-0,2019-05-12,Mid Season Invitational,2019,T1,FunPlus Phoenix
+27,1,FASE A GIRONI,1-0,2019-05-12,Mid Season Invitational,2019,G2 Esports,Fnatic
+28,1,FINALE,0-1,2019-05-14,Mid Season Invitational,2019,T1,G2 Esports
+29,2,FINALE,0-2,2019-05-14,Mid Season Invitational,2019,T1,G2 Esports
+30,3,FINALE,0-3,2019-05-14,Mid Season Invitational,2019,T1,G2 Esports
+31,1,SEMIFINALE,1-0,2016-10-14,Season World Championship,2016,Cloud9,DWG KIA
+32,2,SEMIFINALE,2-0,2016-10-14,Season World Championship,2016,Cloud9,DWG KIA
+33,3,SEMIFINALE,3-0,2016-10-14,Season World Championship,2016,Cloud9,DWG KIA
+34,1,SEMIFINALE,1-0,2016-10-15,Season World Championship,2016,T1,G2 Esports
+35,2,SEMIFINALE,1-1,2016-10-15,Season World Championship,2016,T1,G2 Esports
+36,3,SEMIFINALE,2-1,2016-10-15,Season World Championship,2016,T1,G2 Esports
+37,4,SEMIFINALE,2-2,2016-10-15,Season World Championship,2016,T1,G2 Esports
+38,5,SEMIFINALE,3-2,2016-10-15,Season World Championship,2016,T1,G2 Esports
+39,1,FINALE,1-0,2016-10-20,Season World Championship,2016,T1,Cloud9
+40,2,FINALE,1-1,2016-10-20,Season World Championship,2016,T1,Cloud9
+41,3,FINALE,2-1,2016-10-20,Season World Championship,2016,T1,Cloud9
+42,4,FINALE,3-1,2016-10-20,Season World Championship,2016,T1,Cloud9
+43,1,FINALE,3-0,2017-10-20,MLG Summer Arena,2017,G2 Esports,T1
