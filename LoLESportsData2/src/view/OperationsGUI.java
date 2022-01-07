@@ -3,12 +3,16 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import view.ButtonClickListener;
 
@@ -19,10 +23,14 @@ public class OperationsGUI {
 	 * Frame of the operations
 	 */
 	private static JFrame opFrame = new JFrame();
-	
-	
-	public static JFrame getFrame() {return opFrame;}
-	public static void closeFrame() {opFrame.dispose();}
+
+	public static JFrame getFrame() {
+		return opFrame;
+	}
+
+	public static void closeFrame() {
+		opFrame.dispose();
+	}
 
 	/**
 	 * Apre la finestra di scelta operazioni
@@ -37,10 +45,11 @@ public class OperationsGUI {
 
 		// Panel del titolo
 		titlePanel = new JPanel(new FlowLayout());
-		titlePanel.setBounds(300, 0, 150, 150);
-		titlePanel.setBackground(new Color(255, 0, 0));
+
 
 		JLabel title = new JLabel("Tutte le operazioni");
+		title.setFont(new Font("Serif", Font.BOLD, 18));
+		titlePanel.add(title);
 		titlePanel.add(title);
 
 		JButton op2 = new JButton("<html>Dato il rateo di ogni giocatore, elenca Nickname,nome,cognome,<br>"
@@ -63,7 +72,7 @@ public class OperationsGUI {
 						+ "oppure almeno 2 tornei nazionali</html>");
 		JButton op8 = new JButton("<html>Elenca le squadre che hanno giocato partite da 5 turni<br>"
 				+ "ribaltando la serie da 0-2 a 3-2 o viceversa</html>");
-		// JButton op9 = new JButton("Operazioni prestabilite");
+		JButton op9 = new JButton("<html>Dato un giocatore, <br>mostra il numero di partite vinte</html>");
 		JButton op10 = new JButton("<html>Trova le 2 squadre che si sono <br>affrontate più volte</html>");
 		JButton op11 = new JButton("<html>Elenca gli sponsor e le informazioni sugli accordi che hanno con la squadra"
 				+ "<br>che ha vinto più tornei</html>");
@@ -75,6 +84,60 @@ public class OperationsGUI {
 				"<html>Trova il giocatore, la squadra e lo stipendio,il cui è più alto di tutti gli altri"
 						+ "<br>giocatori della stessa squadra attuale</html>");
 
+		Border raisedBorder = BorderFactory.createRaisedBevelBorder();
+
+		op10.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op10.setBackground(new Color(0x0ccdcd));
+		op10.setBorder(raisedBorder);
+
+		op2.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op2.setBackground(new Color(0x0ccdcd));
+		op2.setBorder(raisedBorder);
+
+		op3.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op3.setBackground(new Color(0x0ccdcd));
+		op3.setBorder(raisedBorder);
+
+		op4.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op4.setBackground(new Color(0x0ccdcd));
+		op4.setBorder(raisedBorder);
+
+		op5.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op5.setBackground(new Color(0x0ccdcd));
+		op5.setBorder(raisedBorder);
+
+		op6.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op6.setBackground(new Color(0x0ccdcd));
+		op6.setBorder(raisedBorder);
+
+		op7.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op7.setBackground(new Color(0x0ccdcd));
+		op7.setBorder(raisedBorder);
+
+		op8.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op8.setBackground(new Color(0x0ccdcd));
+		op8.setBorder(raisedBorder);
+		
+		op9.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op9.setBackground(new Color(0x0ccdcd));
+		op9.setBorder(raisedBorder);
+
+		op11.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op11.setBackground(new Color(0x0ccdcd));
+		op11.setBorder(raisedBorder);
+		
+		op12.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op12.setBackground(new Color(0x0ccdcd));
+		op12.setBorder(raisedBorder);
+		
+		op13.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op13.setBackground(new Color(0x0ccdcd));
+		op13.setBorder(raisedBorder);
+
+		op14.setBorder(new EmptyBorder(5, 15, 5, 15));
+		op14.setBackground(new Color(0x0ccdcd));
+		op14.setBorder(raisedBorder);
+		
 		// op1.setActionCommand("1");
 		op2.setActionCommand("2");
 		op3.setActionCommand("3");
@@ -83,7 +146,7 @@ public class OperationsGUI {
 		op6.setActionCommand("6");
 		op7.setActionCommand("7");
 		op8.setActionCommand("8");
-		// op9.setActionCommand("9");
+		op9.setActionCommand("9");
 		op10.setActionCommand("10");
 		op11.setActionCommand("11");
 		op12.setActionCommand("12");
@@ -98,7 +161,7 @@ public class OperationsGUI {
 		op6.addActionListener(new ButtonClickListener());
 		op7.addActionListener(new ButtonClickListener());
 		op8.addActionListener(new ButtonClickListener());
-		// op9.addActionListener(new ButtonClickListener());
+		op9.addActionListener(new ButtonClickListener());
 		op10.addActionListener(new ButtonClickListener());
 		op11.addActionListener(new ButtonClickListener());
 		op12.addActionListener(new ButtonClickListener());
@@ -114,7 +177,7 @@ public class OperationsGUI {
 		buttonPanel.add(op6);
 		buttonPanel.add(op7);
 		buttonPanel.add(op8);
-		// buttonPanel.add(op9);
+		buttonPanel.add(op9);
 		buttonPanel.add(op10);
 		buttonPanel.add(op11);
 		buttonPanel.add(op12);
@@ -125,6 +188,10 @@ public class OperationsGUI {
 		goBackB.setActionCommand("Back to menu");
 		goBackB.addActionListener(new ButtonClickListener());
 
+		goBackB.setBorder(new EmptyBorder(5, 15, 5, 15));
+		goBackB.setBackground(new Color(0x0ccdcd));
+		goBackB.setBorder(raisedBorder);
+
 		titlePanel.add(goBackB, BorderLayout.EAST);
 
 		opFrame.add(titlePanel, BorderLayout.NORTH);
@@ -133,4 +200,7 @@ public class OperationsGUI {
 		opFrame.setSize(900, 600);
 		opFrame.setVisible(true);
 	}
+	
+	
+	
 }

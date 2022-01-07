@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import static main.DBOperation.*;
@@ -86,10 +87,20 @@ public class UpdateGUI {
 		JButton submit = new JButton("Esegui...");
 		submit.setActionCommand("esegui aggiornamento");
 		submit.addActionListener(new ButtonClickListener());
+		
+		Border raisedBorder = BorderFactory.createRaisedBevelBorder();
 
 		JButton goBackB = new JButton("Torna al menu");
 		goBackB.setActionCommand("Back to menu");
 		goBackB.addActionListener(new ButtonClickListener());
+
+		submit.setBorder(new EmptyBorder(5, 15, 5, 15));
+		submit.setBackground(new Color(0x0ccdcd));
+		submit.setBorder(raisedBorder);
+		
+		goBackB.setBorder(new EmptyBorder(5, 15, 5, 15));
+		goBackB.setBackground(new Color(0x0ccdcd));
+		goBackB.setBorder(raisedBorder);
 		
 		buttonPanel.add(goBackB);
 		buttonPanel.add(submit);

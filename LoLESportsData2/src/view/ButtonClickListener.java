@@ -76,7 +76,10 @@ public class ButtonClickListener implements ActionListener {
 			createTables(8);
 			break;
 		case "9":
-			createTables(9);
+			Op9.op9Select();
+			break;
+		case "oper9":
+			TableGUI.createTablesOP9(Op9.getSelectedPlayer());
 			break;
 		case "10":
 			createTables(10);

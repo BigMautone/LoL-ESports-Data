@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import org.jdatepicker.JDatePicker;
@@ -99,11 +100,19 @@ public class InsertGUI {
 		goBackB.setActionCommand("Back to menu");
 		goBackB.addActionListener(new ButtonClickListener());
 
+		Border raisedBorder = BorderFactory.createRaisedBevelBorder();
+
+		submit.setBorder(new EmptyBorder(5, 15, 5, 15));
+		submit.setBackground(new Color(0x0ccdcd));
+		submit.setBorder(raisedBorder);
+		
+		goBackB.setBorder(new EmptyBorder(5, 15, 5, 15));
+		goBackB.setBackground(new Color(0x0ccdcd));
+		goBackB.setBorder(raisedBorder);
+
 		inizio = createDatePicker();
 		fine = createDatePicker();
 		
-		Date dataInizio = (Date) inizio.getModel().getValue(); 
-		Date dataFine = (Date) inizio.getModel().getValue(); 
 
 		//Gestione panel prima riga
 		row1.add(pLabel);
@@ -156,7 +165,7 @@ public class InsertGUI {
 		Date data = (Date) j.getModel().getValue(); 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
 		String strDate = dateFormat.format(data);
-		System.out.println(strDate);
+		//System.out.println(strDate);
 		return strDate.toString();
 	}
 	

@@ -48,7 +48,10 @@ public class DBOperation {
 			+ "			and Data_partita in (select Data_partita\r\n"
 			+ "								from partita\r\n" + "								where turno=2\r\n"
 			+ "								and (Risultato = \"0-2\" or Risultato = \"2-0\")));";
-	private static String op9;
+	private static String op9 = "SELECT Giocatore,Squadra, count(*) as Partite_vinte " 
+			+ "FROM contratto as c, partita as p "  
+			+ "WHERE Scaduto = 0 AND ((c.Squadra = p.Squadra1) OR (c.Squadra = p.Squadra2)) "
+			+ "AND (Risultato LIKE \"3%\" OR Risultato LIKE \"%3\")	AND giocatore = ? group by Giocatore;";
 	private static String op10 = "SELECT IF(Squadra1 < Squadra2, concat(Squadra1,\" - \", Squadra2),concat(Squadra2,\" - \", Squadra1)) as Squadre,count(*) as num_partite\r\n"
 			+ "from partita as p1\r\n" + "GROUP BY Squadre \r\n" + "ORDER BY num_partite DESC\r\n" + "LIMIT 1;";
 	private static String op11 = "Select *\r\n" + "FROM accordo\r\n"
@@ -112,6 +115,26 @@ public class DBOperation {
 		}
 	}
 
+	public static ResultSet op9(String p) {
+		
+		String q = op9;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		try {
+			ps = getConnection().prepareStatement(q);
+
+			// Inserisco i parametri di input
+			ps.setString(1, p);
+			rs = ps.executeQuery();
+			
+		}catch(SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return rs;
+	}
+	
 	/**
 	 * Restituisce il resultset utile ad effettuare le operazioni lato front-end
 	 * 
