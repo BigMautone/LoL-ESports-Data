@@ -87,8 +87,8 @@ public class OperationsGUI {
 		op10.setActionCommand("10");
 		op11.setActionCommand("11");
 		op12.setActionCommand("12");
-		op13.setActionCommand("12");
-		op14.setActionCommand("12");
+		op13.setActionCommand("13");
+		op14.setActionCommand("14");
 
 		// op1.addActionListener(new ButtonClickListener());
 		op2.addActionListener(new ButtonClickListener());

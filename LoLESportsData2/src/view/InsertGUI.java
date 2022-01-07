@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatter;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
@@ -17,7 +19,9 @@ import static main.ServerUtility.getConnection;
 import static view.SuperGUI.*;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,13 +46,16 @@ public class InsertGUI {
 
 	//private static JTextField inizio = new JTextField("0");
 	//private static JTextField fine = new JTextField("0");
-	private static JTextField stipendio = new JTextField("0");
+	private static JTextField stipendio = new JTextField("0",15);
 
 	public static JFrame getFrame() {
 		return insFrame;
 	}
 	public static void closeFrame() {insFrame.dispose();}
 
+	/**
+	 * Apre la nuova interfaccia di inserimento
+	 */
 	public static void insertFrame() {
 		getMainFrame().setVisible(false);
 		
@@ -56,7 +63,15 @@ public class InsertGUI {
 		
 		//pannello contenente tutti gli elementi
 		JPanel mainCont = new JPanel();
-		mainCont.setLayout(new BoxLayout(mainCont, BoxLayout.PAGE_AXIS));
+		mainCont.setLayout(new BoxLayout(mainCont, BoxLayout.Y_AXIS));
+		
+		JPanel border = new JPanel();
+		border.setLayout(new BoxLayout(border, BoxLayout.Y_AXIS));
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		TitledBorder titBord =BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(blackline,
+				"Seleziona e riempi i campi per inserire un nuovo contratto"));
+		titBord.setTitleJustification(TitledBorder.ABOVE_TOP);
+		border.setBorder(titBord);
 		
 		//Panel contenente selezione giocatore e squadra
 		JPanel row1 = new JPanel();
@@ -110,16 +125,33 @@ public class InsertGUI {
 		buttonPanel.add(goBackB);
 		buttonPanel.add(submit);
 		
-		mainCont.add(row1);
-		mainCont.add(row2);
-		mainCont.add(row3);
-		mainCont.add(buttonPanel);
+		//Label descrizione
+		/*
+		 * JPanel descPanel = new JPanel();
+		 
+		JLabel desc = new JLabel("Seleziona e riempi i campi per inserire un nuovo contratto");
+		
+		descPanel.add(desc);
+		mainCont.add(descPanel);
+		*/
+		border.add(row1);
+		border.add(row2);
+		border.add(Box.createRigidArea(new Dimension(0,5)));
+		border.add(row3);
+		mainCont.add(border);
+		mainCont.add(Box.createRigidArea(new Dimension(0,5)));
+		mainCont.add(buttonPanel, BorderLayout.SOUTH);
 		
 		insFrame.add(mainCont);
-		insFrame.setSize(900, 600);
+		insFrame.setSize(800, 400);
 		insFrame.setVisible(true);
 	}
 
+	/**
+	 * estrae la data scelta
+	 * @param j
+	 * @return
+	 */
 	private static String getDate(JDatePicker j) {
 		Date data = (Date) j.getModel().getValue(); 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
@@ -128,6 +160,11 @@ public class InsertGUI {
 		return strDate.toString();
 	}
 	
+	/**
+	 * Seleziona il date picker da cui estrarre la data
+	 * @param i 0 per data di inizio, 1+ per data di fine
+	 * @return
+	 */
 	public static String getDateC(int i) {
 		if (i==0) return getDate(inizio);
 		else return getDate(fine);
@@ -152,16 +189,17 @@ public class InsertGUI {
 	 */
 	private static JDatePicker createDatePicker() {
 		UtilDateModel model = new UtilDateModel();
-		
 		JDatePicker datePicker = new JDatePicker(model);
 		return datePicker;
 	}
 
-		 
+	/**
+	 * Stampa il nuovo contratto inserito
+	 */
 	public static void showNewContract() {
 		String[] a = DBOperation.getNewContractValues();
 		JOptionPane.showMessageDialog(null, "Il nuovo contratto di \"" + a[6] +"\" con la squadra \"" + a[5] + "\" "
-				+ "dispone delle seguenti informazioni: Data di inizio: " + a[1] + "; Data di fine: " + a[2] + "; Stipendio: " + a[3]);
+				+ "dispone delle seguenti informazioni: Data di inizio: " + a[1] + "; Data di fine: " + a[2] + "; Stipendio: " + a[3]+"$");
 	}
 
 }

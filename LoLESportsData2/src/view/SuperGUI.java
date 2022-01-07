@@ -76,8 +76,7 @@ public class SuperGUI {
 		// Buttons
 		JButton operations = new JButton("Operazioni prestabilite");
 		JButton updateStats = new JButton("Aggiorna le statistiche di un giocatore");
-		JButton newPlayer = new JButton("Inserisci un nuovo giocatore");
-		JButton boh = new JButton("?");
+		JButton newPlayer = new JButton("Inserisci un nuovo contratto");
 
 		// Button listeners
 		operations.setActionCommand("operazioni");
@@ -92,7 +91,6 @@ public class SuperGUI {
 		buttonPanel.add(operations);
 		buttonPanel.add(newPlayer);
 		buttonPanel.add(updateStats);
-		buttonPanel.add(boh);
 		//containerPanel.add(buttonPanel);
 
 		container.add(titlePanel, BorderLayout.NORTH);

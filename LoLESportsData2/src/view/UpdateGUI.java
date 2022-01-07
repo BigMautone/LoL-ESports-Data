@@ -2,13 +2,16 @@ package view;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import static main.DBOperation.*;
 import static main.ServerUtility.getConnection;
 import static view.SuperGUI.*;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,11 +25,11 @@ public class UpdateGUI {
 
 	private static JComboBox players = new JComboBox(getPlayers());
 
-	private static JTextField uccisioni = new JTextField("0");
+	private static JTextField uccisioni = new JTextField("0",15);
 
-	private static JTextField morti = new JTextField("0");
+	private static JTextField morti = new JTextField("0",15);
 
-	private static JTextField assist = new JTextField("0");
+	private static JTextField assist = new JTextField("0",15);
 
 	public static JFrame getFrame() {
 		return upFrame;
@@ -39,7 +42,20 @@ public class UpdateGUI {
 		
 		upFrame = new JFrame();
 		
+		JPanel mainCont = new JPanel();
+		mainCont.setLayout(new BoxLayout(mainCont, BoxLayout.Y_AXIS));
+		
+		JPanel fieldsView = new JPanel();
+		fieldsView.setLayout(new BoxLayout(fieldsView, BoxLayout.Y_AXIS));
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		TitledBorder titBord =BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(blackline,
+				"Seleziona e riempi i campi per aggiornare le statistiche"));
+		titBord.setTitleJustification(TitledBorder.CENTER);
+		fieldsView.setBorder(titBord);
+
+		
 		JPanel userPanel = new JPanel();
+		JPanel user2Panel = new JPanel();
 
 		JLabel pLabel = new JLabel("Giocatore");
 		
@@ -49,17 +65,21 @@ public class UpdateGUI {
 		
 		JLabel aLabel = new JLabel("Assist");
 		
+	
+		
 
 		userPanel.add(pLabel);
 		userPanel.add(players);
-		userPanel.add(pLabel);
-		userPanel.add(uccisioni);
-		userPanel.add(uLabel);
-		userPanel.add(morti);
-		userPanel.add(aLabel);
-		userPanel.add(assist);
+		user2Panel.add(uLabel);
+		user2Panel.add(uccisioni);
+		user2Panel.add(mLabel);
+		user2Panel.add(morti);
+		user2Panel.add(aLabel);
+		user2Panel.add(assist);
+		fieldsView.add(userPanel);
+		fieldsView.add(user2Panel);
 
-		userPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		//userPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
 		JPanel buttonPanel = new JPanel();
 
@@ -70,12 +90,15 @@ public class UpdateGUI {
 		JButton goBackB = new JButton("Torna al menu");
 		goBackB.setActionCommand("Back to menu");
 		goBackB.addActionListener(new ButtonClickListener());
-
+		
 		buttonPanel.add(goBackB);
 		buttonPanel.add(submit);
-		upFrame.add(userPanel, BorderLayout.CENTER);
-		upFrame.add(buttonPanel, BorderLayout.SOUTH);
-		upFrame.setSize(900, 600);
+		
+		mainCont.add(Box.createRigidArea(new Dimension(0,150)));
+		mainCont.add(fieldsView);
+		mainCont.add(buttonPanel, BorderLayout.SOUTH);
+		upFrame.add(mainCont);
+		upFrame.setSize(800, 600);
 		upFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		upFrame.setVisible(true);
 	}

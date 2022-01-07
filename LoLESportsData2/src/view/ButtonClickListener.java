@@ -33,10 +33,13 @@ public class ButtonClickListener implements ActionListener {
 			insertFrame();
 			break;
 		case "esegui inserimento":
-			doContractInsert(InsertGUI.getSelectedPlayer(), getSelectedSquad(), getStipendio(), getDateC(0),
+			int v = doContractInsert(InsertGUI.getSelectedPlayer(), getSelectedSquad(), getStipendio(), getDateC(0),
 					getDateC(1));
-			InsertGUI.getFrame().dispose();
-			getMainFrame().setVisible(true);
+			if (v == 0) {
+				InsertGUI.closeFrame();
+				getMainFrame().setVisible(true);
+			}
+
 			break;
 		case "operazioni":
 			// JOptionPane.showMessageDialog(null, "operazioni");

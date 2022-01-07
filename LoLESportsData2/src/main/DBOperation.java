@@ -16,23 +16,13 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import view.InsertGUI;
-import view.OperationsGUI;
-import view.UpdateGUI;
+
+import static view.InsertGUI.*;
+import static view.OperationsGUI.*;
+import static view.UpdateGUI.*;
 
 public class DBOperation {
 
-	private static InsertGUI insert;
-	private static UpdateGUI update;
-	private static OperationsGUI op;
-
-	public DBOperation() {
-		insert = new InsertGUI();
-		update = new UpdateGUI();
-		op = new OperationsGUI();
-	}
- 
-	
-	
 	private static String op1;
 	private static String op2 = "SELECT Id,Nome,Cognome,Squadra, (year(CURDATE()) - year(Data_di_nascita)) as età, rateo(Uccisioni,Morti,Assist) as rateo\r\n"
 			+ "FROM giocatore,contratto as c,statistiche as s\r\n"
@@ -231,7 +221,7 @@ public class DBOperation {
 
 		String[][] ids = getValues(rs, 1);
 
-		HashSet<String> newIds = new HashSet<String>();
+		ArrayList<String> newIds = new ArrayList<String>();
 
 		for (int j = 0; j < ids.length; j++) {
 			newIds.add(ids[j][0]);
@@ -256,7 +246,7 @@ public class DBOperation {
 
 		String[][] ids = getValues(rs, 1);
 
-		HashSet<String> newIds = new HashSet<String>();
+		ArrayList<String> newIds = new ArrayList<String>();
 
 		for (int j = 0; j < ids.length; j++) {
 			newIds.add(ids[j][0]);
@@ -296,9 +286,10 @@ public class DBOperation {
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
 	}
-	
+
 	/**
-	 * Mostra l'ultimo contratto inserito 
+	 * Mostra l'ultimo contratto inserito
+	 * 
 	 * @param p
 	 * @param squad
 	 * @return
@@ -311,8 +302,8 @@ public class DBOperation {
 			ps = getConnection().prepareStatement(s);
 
 			// Inserisco i parametri di input
-			ps.setString(1, insert.getSelectedPlayer());
-			ps.setString(2, insert.getSelectedSquad());
+			ps.setString(1, InsertGUI.getSelectedPlayer());
+			ps.setString(2, InsertGUI.getSelectedSquad());
 			rs = ps.executeQuery();
 			// ps.close();
 
@@ -343,7 +334,7 @@ public class DBOperation {
 	 * @param inizio data inizio
 	 * @param fine   data fine
 	 */
-	public static void doContractInsert(String p, String squad, double stip, String inizio, String fine) {
+	public static int doContractInsert(String p, String squad, double stip, String inizio, String fine) {
 		String insertQuery = "INSERT INTO contratto(Data_inizio,Data_fine,Stipendio,Scaduto,Squadra,Giocatore)"
 				+ "VALUES (?,?,?,0,?,?)";
 		PreparedStatement ps = null;
@@ -358,17 +349,23 @@ public class DBOperation {
 			ps.setString(5, p);
 			ps.executeUpdate();
 			ps.close();
-			insert.showNewContract();
+			showNewContract();
+			return 0;
 
 		} catch (SQLException ex) {
-			System.out.println("SQLException: " + ex.getMessage());
+			String errorCode = ex.getSQLState();
+			/*
+	 		System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
-			if(ex.getSQLState() == "45000") {
-				//TODO
-				JOptionPane.showMessageDialog(null, ex.getMessage());
-			}
-		} 
+			
+			
+			if (errorCode == "45000") {
+				// TODO
+			}*/
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+			return Integer.parseInt(ex.getSQLState());
+		}
 	}
 
 	public static void main(String[] args) {
