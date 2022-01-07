@@ -65,7 +65,7 @@ public class TableGUI {
 		sp = new JScrollPane(tb);
 		
 		
-		JPanel tPanel = new JPanel();
+		JPanel tPanel = new JPanel(new BorderLayout());
 		
 		tPanel.add(sp);
 		

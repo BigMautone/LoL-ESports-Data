@@ -22,7 +22,8 @@ public class OperationsGUI {
 	
 	
 	public static JFrame getFrame() {return opFrame;}
-	
+	public static void closeFrame() {opFrame.dispose();}
+
 	/**
 	 * Apre la finestra di scelta operazioni
 	 */

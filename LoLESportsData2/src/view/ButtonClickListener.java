@@ -10,6 +10,7 @@ import static view.OperationsGUI.*;
 import static view.TableGUI.*;
 import static view.UpdateGUI.*;
 import static main.DBOperation.*;
+import static view.InsertGUI.*;
 
 public class ButtonClickListener implements ActionListener {
 
@@ -18,25 +19,33 @@ public class ButtonClickListener implements ActionListener {
 
 		switch (command) {
 		case "aggiornamento":
-			//JOptionPane.showMessageDialog(null, "aggiornamento");
+			// JOptionPane.showMessageDialog(null, "aggiornamento");
 			updateFrame();
 			break;
 		case "esegui aggiornamento":
-			doStatisticsUpdate(getSelectedPlayer(), getKills(), getDeaths(), getAssists());
+			doStatisticsUpdate(UpdateGUI.getSelectedPlayer(), getKills(), getDeaths(), getAssists());
 			showNewStats();
 			UpdateGUI.getFrame().dispose();
 			getMainFrame().setVisible(true);
 			break;
 		case "inserimento":
-			JOptionPane.showMessageDialog(null, "inserimento");
+			// JOptionPane.showMessageDialog(null, "inserimento");
+			insertFrame();
+			break;
+		case "esegui inserimento":
+			doContractInsert(InsertGUI.getSelectedPlayer(), getSelectedSquad(), getStipendio(), getDateC(0),
+					getDateC(1));
+			InsertGUI.getFrame().dispose();
+			getMainFrame().setVisible(true);
 			break;
 		case "operazioni":
 			// JOptionPane.showMessageDialog(null, "operazioni");
 			operationFrame();
 			break;
 		case "Back to menu":
-			OperationsGUI.getFrame().dispose();
-			UpdateGUI.getFrame().dispose();
+			OperationsGUI.closeFrame();
+			UpdateGUI.closeFrame();
+			InsertGUI.closeFrame();
 			getMainFrame().setVisible(true);
 			break;
 		case "1":
@@ -84,4 +93,3 @@ public class ButtonClickListener implements ActionListener {
 		}
 	}
 }
-

@@ -1,5 +1,6 @@
 package main;
 
+import static main.DBOperation.getColumnsName;
 import static main.DBOperation.getValues;
 import static main.ServerUtility.*;
 
@@ -12,8 +13,26 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
+import view.InsertGUI;
+import view.OperationsGUI;
+import view.UpdateGUI;
+
 public class DBOperation {
 
+	private static InsertGUI insert;
+	private static UpdateGUI update;
+	private static OperationsGUI op;
+
+	public DBOperation() {
+		insert = new InsertGUI();
+		update = new UpdateGUI();
+		op = new OperationsGUI();
+	}
+ 
+	
+	
 	private static String op1;
 	private static String op2 = "SELECT Id,Nome,Cognome,Squadra, (year(CURDATE()) - year(Data_di_nascita)) as età, rateo(Uccisioni,Morti,Assist) as rateo\r\n"
 			+ "FROM giocatore,contratto as c,statistiche as s\r\n"
@@ -152,7 +171,7 @@ public class DBOperation {
 		String[] newCol = new String[columns.size()];
 		for (int i = 0; i < columns.size(); i++) {
 			newCol[i] = columns.get(i);
-			//System.out.println("colonna --> " + newCol[i]);
+			// System.out.println("colonna --> " + newCol[i]);
 
 		}
 
@@ -178,9 +197,9 @@ public class DBOperation {
 				for (int i = 1; i <= nCol; i++) {
 					String columnValue = rs.getString(i);
 					data.get(i - 1).add(columnValue);
-					//System.out.print(columnValue + ", ");
+					// System.out.print(columnValue + ", ");
 				}
-				 //System.out.println("");
+				// System.out.println("");
 			}
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
@@ -189,75 +208,168 @@ public class DBOperation {
 		}
 		String[][] newData = new String[data.get(0).size()][data.size()];
 		for (int i = 0; i < data.get(0).size(); i++) {
-			//System.out.print("[");
+			// System.out.print("[");
 			for (int j = 0; j < data.size(); j++) {
 				newData[i][j] = data.get(j).get(i);
-				//System.out.print(newData[i][j]+", ");
+				// System.out.print(newData[i][j]+", ");
 			}
-			//System.out.println("]");
+			// System.out.println("]");
 		}
 
 		return newData;
 	}
-	
+
 	/**
 	 * Estrae il nickname di tutti i giocatori dal server
+	 * 
 	 * @return
 	 */
 	public static String[] getPlayers() {
 		String query = "SELECT Id from giocatore";
-		
+
 		ResultSet rs = getResultSet(query);
-		
+
 		String[][] ids = getValues(rs, 1);
-		
+
 		HashSet<String> newIds = new HashSet<String>();
-		
+
 		for (int j = 0; j < ids.length; j++) {
 			newIds.add(ids[j][0]);
 		}
-		
+
 		String[] a = new String[newIds.size()];
 		newIds.toArray(a);
-		
+
 		/*
-		for (int i = 0; i < ids[0].length; i++) {
-			System.out.print("[");
-			for (int j = 0; j < ids.length; j++) {
-				System.out.print(ids[j][i]+", ");
-			}
-			System.out.println("]");
-		}
-	*/
+		 * for (int i = 0; i < ids[0].length; i++) { System.out.print("["); for (int j =
+		 * 0; j < ids.length; j++) { System.out.print(ids[j][i]+", "); }
+		 * System.out.println("]"); }
+		 */
 
 		return a;
 	}
-	
-	
-	public static void doStatisticsUpdate(String p,int u, int m, int a) {
-	
+
+	public static String[] getSquads() {
+		String query = "SELECT Nome from squadra";
+
+		ResultSet rs = getResultSet(query);
+
+		String[][] ids = getValues(rs, 1);
+
+		HashSet<String> newIds = new HashSet<String>();
+
+		for (int j = 0; j < ids.length; j++) {
+			newIds.add(ids[j][0]);
+		}
+
+		String[] a = new String[newIds.size()];
+		newIds.toArray(a);
+
+		/*
+		 * for (int i = 0; i < ids[0].length; i++) { System.out.print("["); for (int j =
+		 * 0; j < ids.length; j++) { System.out.print(ids[j][i]+", "); }
+		 * System.out.println("]"); }
+		 */
+
+		return a;
+	}
+
+	public static void doStatisticsUpdate(String p, int u, int m, int a) {
+
 		String updateQuery = "UPDATE statistiche "
-							+ "SET Uccisioni =(Uccisioni + ?), Morti = (Morti + ?), Assist = (Assist + ?)" 
-							+ "WHERE Giocatore = ?";
+				+ "SET Uccisioni =(Uccisioni + ?), Morti = (Morti + ?), Assist = (Assist + ?)" + "WHERE Giocatore = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = getConnection().prepareStatement(updateQuery);
-			
-			//Inserisco i parametri di input
+
+			// Inserisco i parametri di input
 			ps.setInt(1, u);
 			ps.setInt(2, m);
 			ps.setInt(3, a);
 			ps.setString(4, p);
 			ps.executeUpdate();
 			ps.close();
-			
+
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
 	}
+	
+	/**
+	 * Mostra l'ultimo contratto inserito 
+	 * @param p
+	 * @param squad
+	 * @return
+	 */
+	public static String[] getNewContractValues() {
+		String s = "Select * from contratto where Giocatore = ? and squadra = ? order by Codice Desc LIMIT 1";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = getConnection().prepareStatement(s);
 
+			// Inserisco i parametri di input
+			ps.setString(1, insert.getSelectedPlayer());
+			ps.setString(2, insert.getSelectedSquad());
+			rs = ps.executeQuery();
+			// ps.close();
+
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+
+		String[][] ss = getValues(rs, getColumnsName(rs).length);
+
+		ArrayList<String> contractVals = new ArrayList<String>();
+
+		for (int j = 0; j < ss[0].length; j++) {
+			contractVals.add(ss[0][j]);
+		}
+
+		String[] a = new String[contractVals.size()];
+		contractVals.toArray(a);
+		return a;
+	}
+
+	/**
+	 * 
+	 * @param p      giocatore
+	 * @param squad  squadra
+	 * @param stip   stipendio
+	 * @param inizio data inizio
+	 * @param fine   data fine
+	 */
+	public static void doContractInsert(String p, String squad, double stip, String inizio, String fine) {
+		String insertQuery = "INSERT INTO contratto(Data_inizio,Data_fine,Stipendio,Scaduto,Squadra,Giocatore)"
+				+ "VALUES (?,?,?,0,?,?)";
+		PreparedStatement ps = null;
+		try {
+			ps = getConnection().prepareStatement(insertQuery);
+
+			// Inserisco i parametri di input
+			ps.setString(1, inizio);
+			ps.setString(2, fine);
+			ps.setDouble(3, stip);
+			ps.setString(4, squad);
+			ps.setString(5, p);
+			ps.executeUpdate();
+			ps.close();
+			insert.showNewContract();
+
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+			if(ex.getSQLState() == "45000") {
+				//TODO
+				JOptionPane.showMessageDialog(null, ex.getMessage());
+			}
+		} 
+	}
 
 	public static void main(String[] args) {
 		/*

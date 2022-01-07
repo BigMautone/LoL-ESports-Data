@@ -31,6 +31,8 @@ public class UpdateGUI {
 	public static JFrame getFrame() {
 		return upFrame;
 	}
+	public static void closeFrame() {upFrame.dispose();}
+
 
 	public static void updateFrame() {
 		getMainFrame().setVisible(false);
